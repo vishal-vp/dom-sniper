@@ -8,7 +8,7 @@ let bodyColor = $('body').css('backgroundColor');
 $('*').mousemove(function(event) {
   // Get the current element.
   const element = $(event.target);
-  if (element === previousElement) {
+  if (element.is(previousElement)) {
     // Ignore if element has not changed.
     return;
   }
