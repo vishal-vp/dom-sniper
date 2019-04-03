@@ -7,7 +7,7 @@
   "description": "Delete HTML element by pointing and shooting.",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "48": "icons/sniper.png"
   },
 
   "content_scripts": [
