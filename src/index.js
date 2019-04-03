@@ -4,8 +4,9 @@ import Color from 'color';
 
 let previousElement, previousBackground, previousCursor;
 let bodyColor = $('body').css('backgroundColor');
+let isActivated = false;
 
-$('*').mousemove(function(event) {
+function mouseMoveListener(event) {
   // Get the current element.
   const element = $(event.target);
   if (element.is(previousElement)) {
@@ -26,11 +27,31 @@ $('*').mousemove(function(event) {
   previousBackground = background;
   previousCursor = cursor;
   return false;
-});
+}
 
-$('*').click(function(event) {
+function elementClickListener(event) {
   event.preventDefault();
   // Delete the clicked element.
-  $(this).remove();
+  $(this).css('display', 'none');
   return false;
+}
+
+// Setup communication between with background script.
+var myPort = browser.runtime.connect({name:"port-from-cs"});
+myPort.postMessage({greeting: "hello from content script"});
+
+myPort.onMessage.addListener(function(message) {
+  if (message.isActivated) {
+    $('*').on('mousemove', mouseMoveListener);
+    $('*').on('click', elementClickListener);
+  } else {
+    $('*').off('mousemove', mouseMoveListener);
+    $('*').off('click', elementClickListener);
+    if (previousElement) {
+      // Restore previous element appearance.
+      previousElement.css('backgroundColor', previousBackground)
+                     .css('cursor', previousCursor);
+      previousElement = previousBackground = previousCursor = null;
+    }
+  }
 });
