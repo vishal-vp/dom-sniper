@@ -1,10 +1,10 @@
 {
 
   "manifest_version": 2,
-  "name": "Sniper",
-  "version": "1.0",
+  "name": "HTML Sniper",
+  "version": "1.1",
 
-  "description": "Delete HTML element by pointing and shooting.",
+  "description": "Delete HTML element by clicking on the element.",
 
   "icons": {
     "48": "icons/sniper.png"
