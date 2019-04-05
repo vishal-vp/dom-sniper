@@ -5,11 +5,15 @@ import Color from 'color';
 const highlightColor = '#00ff00';
 let previousElement, previousBackground, previousCursor;
 let isActivated = false;
+let hiddenElements = [];
+
+// Bind one time keypress events.
+$('html').on('keyup', keyPressListener);
 
 function mouseMoveListener(event) {
   // Get the current element.
   const element = $(event.target);
-  if (element.is(previousElement)) {
+  if (element.is(previousElement) || element.is('html')) {
     // Ignore if element has not changed.
     return;
   }
@@ -31,22 +35,42 @@ function mouseMoveListener(event) {
 
 function elementClickListener() {
   // Delete the clicked element.
-  $(this).css('display', 'none');
+  let element = $(this);
+  if (element.is('html')) {
+    // Do not hide html DOM element else events (undo) won't work.
+    element = $('body');
+  }
+  const display = element.css('display');
+  element.css('display', 'none');
+  hiddenElements.push({
+    element: $(this),
+    display: display
+  })
   return false;
 }
 
-function deactivateKeyPressListener(event) {
+function keyPressListener(event) {
+  // Ignore IME Composition.
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
   // Deactivate extension when esc key is pressed.
   if (event.keyCode === 27) {
     myPort.postMessage({'action': 'deactivate'});
     unbindEvents();
+  } else if (event.keyCode === 90) {
+    // Unhide hidden element.
+    const lastDOMObject = hiddenElements.pop();
+    if (lastDOMObject) {
+      lastDOMObject.element.css('display', lastDOMObject.display);
+    }
   }
+  return false;
 }
 
 function bindEvents() {
   $('*').on('mousemove', mouseMoveListener);
   $('*').on('click', elementClickListener);
-  $(document).on('keyup', deactivateKeyPressListener);
 }
 
 function unbindEvents() {
