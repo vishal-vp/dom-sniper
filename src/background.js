@@ -1,7 +1,5 @@
 // Track toolbar icon click status.
-let isActivated = false;
-let ports = [];
-let states = {};
+const ports = [];
 
 function connected(p) {
   p.isActivated = false;
