@@ -1,3 +1,4 @@
+import browser from "webextension-polyfill";
 import $ from 'jquery';
 import invert from 'invert-color';
 import Color from 'color';

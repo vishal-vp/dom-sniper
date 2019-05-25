@@ -1,4 +1,5 @@
 // Track toolbar icon click status.
+import browser from "webextension-polyfill";
 const ports = [];
 
 function connected(p) {
@@ -22,7 +23,7 @@ function connected(p) {
 browser.runtime.onConnect.addListener(connected);
 
 browser.browserAction.onClicked.addListener(function(tab) {
-  port = ports[tab.id];
+  const port = ports[tab.id];
   port.isActivated = !port.isActivated;
   if (port.isActivated) {
     browser.browserAction.setIcon({

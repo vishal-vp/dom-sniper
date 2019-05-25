@@ -1,18 +1,23 @@
 {
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.common.js",
-    "lint": "eslint src/"
+    "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js",
+    "lint": "eslint src/",
+    "start": "webpack --config webpack.dev.js --watch & web-ext run --firefox=/opt/firefox/firefox-bin --firefox-profile ~/.mozilla/firefox/kb1qn6t4.dev-edition-default/  --start-url www.google.com --start-url about:debugging"
   },
   "dependencies": {
     "color": "^3.1.0",
     "invert-color": "^2.0.0",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "webextension-polyfill": "^0.4.0",
+    "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
+    "web-ext": "^3.0.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   }
