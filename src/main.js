@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import $ from 'jquery';
+import * as constants from './constants';
 
 let previousElement;
 let previousBackground;
@@ -84,7 +85,7 @@ function keyPressListener(event) {
   }
   if (event.keyCode === 27) {
     // Escape key is pressed. Deactivate extension.
-    myPort.postMessage({ action: 'deactivate' });
+    myPort.postMessage({ action: constants.browserActions.DEACTIVATE });
     unbindEvents();
   } else if (event.keyCode === 90) {
     // Ctrl + z is pressed. Unhide last hidden element.
