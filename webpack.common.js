@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/main.js',
+    main: './src/main.js',
     background: './src/background.js'
   },
   output: {

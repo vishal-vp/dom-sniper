@@ -3,7 +3,10 @@ import browser from 'webextension-polyfill';
 
 const ports = [];
 
-function connected(p) {
+/**
+ * Handle connection from browser tabs.
+ */
+function onConnected(p) {
   p.isActivated = false; /* eslint-disable-line no-param-reassign */
   ports[p.sender.tab.id] = p;
   p.onDisconnect.addListener(() => {
@@ -21,8 +24,9 @@ function connected(p) {
   });
 }
 
-browser.runtime.onConnect.addListener(connected);
-
+/**
+ * Activate/Deactivate extension on specific page.
+ */
 browser.browserAction.onClicked.addListener((tab) => {
   const port = ports[tab.id];
   port.isActivated = !port.isActivated;
@@ -39,3 +43,5 @@ browser.browserAction.onClicked.addListener((tab) => {
   }
   port.postMessage({ isActivated: port.isActivated });
 });
+
+browser.runtime.onConnect.addListener(onConnected);

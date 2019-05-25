@@ -9,8 +9,10 @@ const hiddenElements = [];
 // Setup communication between with background script.
 const myPort = browser.runtime.connect();
 
-function elementClickListener() {
-  // Delete the clicked element.
+/**
+ * Hide target element.
+ */
+function hideTarget() {
   let element = $(this);
   if (element.is('html')) {
     // Do not hide html DOM element else events (undo) won't work.
@@ -25,7 +27,10 @@ function elementClickListener() {
   return false;
 }
 
-function mouseMoveListener(event) {
+/**
+ * Highlight the element on hover.
+ */
+function highlightTarget(event) {
   // Get the current element.
   const element = $(event.target);
   if (element.is(previousElement) || element.is('html')) {
@@ -46,14 +51,20 @@ function mouseMoveListener(event) {
   previousCursor = cursor;
 }
 
+/**
+ * Activate extension. Bind event listeners.
+ */
 function bindEvents() {
-  $('*').on('mousemove', mouseMoveListener);
-  $('*').on('click', elementClickListener);
+  $('*').on('mousemove', highlightTarget);
+  $('*').on('click', hideTarget);
 }
 
+/**
+ * Deactivate extension. Unbind all events listeners.
+ */
 function unbindEvents() {
-  $('*').off('mousemove', mouseMoveListener);
-  $('*').off('click', elementClickListener);
+  $('*').off('mousemove', highlightTarget);
+  $('*').off('click', hideTarget);
   if (previousElement) {
     // Restore previous element appearance.
     previousElement.css('backgroundColor', previousBackground).css('cursor', previousCursor);
@@ -63,6 +74,28 @@ function unbindEvents() {
   }
 }
 
+/**
+ * Handle undo and deactivate key presses.
+ */
+function keyPressListener(event) {
+  // Ignore IME Composition.
+  if (event.isComposing || event.keyCode === 229) {
+    return;
+  }
+  if (event.keyCode === 27) {
+    // Escape key is pressed. Deactivate extension.
+    myPort.postMessage({ action: 'deactivate' });
+    unbindEvents();
+  } else if (event.keyCode === 90) {
+    // Ctrl + z is pressed. Unhide last hidden element.
+    const lastDOMObject = hiddenElements.pop();
+    if (lastDOMObject) {
+      lastDOMObject.element.css('display', lastDOMObject.display);
+    }
+  }
+}
+
+// Handle click events from extension toolbar icon.
 myPort.onMessage.addListener((message) => {
   if (message.isActivated) {
     bindEvents();
@@ -70,24 +103,6 @@ myPort.onMessage.addListener((message) => {
     unbindEvents();
   }
 });
-
-function keyPressListener(event) {
-  // Ignore IME Composition.
-  if (event.isComposing || event.keyCode === 229) {
-    return;
-  }
-  // Deactivate extension when esc key is pressed.
-  if (event.keyCode === 27) {
-    myPort.postMessage({ action: 'deactivate' });
-    unbindEvents();
-  } else if (event.keyCode === 90) {
-    // Unhide hidden element.
-    const lastDOMObject = hiddenElements.pop();
-    if (lastDOMObject) {
-      lastDOMObject.element.css('display', lastDOMObject.display);
-    }
-  }
-}
 
 // Bind one time keypress events.
 $('html').on('keyup', keyPressListener);
