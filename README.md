@@ -1,4 +1,4 @@
-# HTML sniper
+# DOM sniper
 Remove HTML elements from the page by clicking on them. Install the firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/html-sniper/?src=search.).
 
 ## How to use?
