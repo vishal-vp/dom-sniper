@@ -4,21 +4,31 @@
     "build:dev": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
     "lint": "eslint src/",
-    "start": "webpack --config webpack.dev.js --watch & web-ext run --firefox=/opt/firefox/firefox-bin --firefox-profile ~/.mozilla/firefox/kb1qn6t4.dev-edition-default/  --start-url www.google.com --start-url about:debugging"
+    "start": "webpack --config webpack.dev.js --watch",
+    "test": "mocha --require babel-core/register --config webpack.dev.js"
   },
   "dependencies": {
     "color": "^3.1.0",
     "invert-color": "^2.0.0",
     "jquery": "^3.4.1",
     "webextension-polyfill": "^0.4.0",
+    "webpack": "^4.32.2",
     "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
+    "mocha": "^6.1.4",
     "web-ext": "^3.0.0",
-    "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }

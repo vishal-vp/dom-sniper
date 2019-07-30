@@ -78,7 +78,7 @@ function unbindEvents() {
 /**
  * Handle undo and deactivate key presses.
  */
-function keyPressListener(event) {
+function onKeyPress(event) {
   // Ignore IME Composition.
   if (event.isComposing || event.keyCode === 229) {
     return;
@@ -106,4 +106,4 @@ myPort.onMessage.addListener((message) => {
 });
 
 // Bind one time keypress events.
-$('html').on('keyup', keyPressListener);
+$('html').on('keyup', onKeyPress);
