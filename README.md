@@ -1,5 +1,5 @@
 # DOM Delete
-Remove DOM elements from the page by clicking on them. Install the firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/html-sniper/).
+Remove DOM elements from the page by clicking on them. Install the firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/dom-delete/).
 
 ## How to use?
   1. Once the page is loaded click on the extension icon in the toolbar.
