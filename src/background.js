@@ -16,7 +16,7 @@ function onConnected(p) {
     if (m.action === constants.browserActions.DEACTIVATE) {
       portObjs[p.sender.tab.id].isActivated = false;
       browser.browserAction.setIcon({
-        path: '../icons/sniper.png',
+        path: '../icons/dom_delete.png',
         tabId: p.sender.tab.id,
       });
     }
@@ -35,12 +35,12 @@ browser.browserAction.onClicked.addListener((tab) => {
   portObj.isActivated = !portObj.isActivated;
   if (portObj.isActivated) {
     browser.browserAction.setIcon({
-      path: '../icons/sniper_active.png',
+      path: '../icons/dom_delete_active.png',
       tabId: tab.id,
     });
   } else {
     browser.browserAction.setIcon({
-      path: '../icons/sniper.png',
+      path: '../icons/dom_delete.png',
       tabId: tab.id,
     });
   }

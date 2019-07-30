@@ -1,13 +1,13 @@
 {
 
   "manifest_version": 2,
-  "name": "HTML Sniper",
+  "name": "DOM delete",
   "version": "1.1.2",
 
-  "description": "Delete HTML element by clicking on the element.",
+  "description": "Delete DOM element by clicking on the element.",
 
   "icons": {
-    "48": "icons/sniper.png"
+    "48": "icons/dom_delete.png"
   },
 
   "content_scripts": [
@@ -19,7 +19,7 @@
 
   "browser_action": {
     "default_icon": {
-      "19": "icons/sniper.png"
+      "19": "icons/dom_delete.png"
     },
     "default_title": "Delete html element"
   },
