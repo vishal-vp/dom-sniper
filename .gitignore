@@ -2,3 +2,4 @@ node_modules
 dist
 *.swp
 package_instructions.md
+web-ext-artifacts

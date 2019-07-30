@@ -5,7 +5,8 @@
     "build:prod": "webpack --config webpack.prod.js",
     "lint": "eslint src/",
     "start": "webpack --config webpack.dev.js --watch",
-    "test": "mocha --require babel-core/register --config webpack.dev.js"
+    "test": "mocha --require babel-core/register --config webpack.dev.js",
+    "package": "web-ext build"
   },
   "dependencies": {
     "color": "^3.1.0",
