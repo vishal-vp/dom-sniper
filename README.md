@@ -1,4 +1,4 @@
-# DOM delete
+# DOM Delete
 Remove DOM elements from the page by clicking on them. Install the firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/html-sniper/).
 
 ## How to use?

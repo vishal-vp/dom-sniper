@@ -1,7 +1,7 @@
 {
 
   "manifest_version": 2,
-  "name": "DOM delete",
+  "name": "DOM Delete",
   "version": "1.1.2",
 
   "description": "Delete DOM element by clicking on the element.",
